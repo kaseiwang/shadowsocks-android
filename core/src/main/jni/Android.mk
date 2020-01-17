@@ -25,6 +25,7 @@ BUILD_SHARED_EXECUTABLE := $(LOCAL_PATH)/build-shared-executable.mk
 include $(CLEAR_VARS)
 
 SODIUM_SOURCE := \
+	crypto_aead/aegis256/armcrypto/aead_aegis256_armcrypto.c \
 	crypto_aead/aes256gcm/aesni/aead_aes256gcm_aesni.c \
 	crypto_aead/chacha20poly1305/sodium/aead_chacha20poly1305.c \
 	crypto_aead/xchacha20poly1305/sodium/aead_xchacha20poly1305.c \
@@ -99,6 +100,8 @@ LOCAL_CFLAGS += -I$(LOCAL_PATH)/libsodium/src/libsodium/include \
 				-DHAVE_NANOSLEEP=1                \
 				-DHAVE_POSIX_MEMALIGN=1           \
 				-DHAVE_GETPID=1                   \
+				-march=armv8-a+crypto			  \
+				-DHAVE_ARMCRYPTO				  \
 				-DCONFIGURED=1
 
 LOCAL_SRC_FILES := $(addprefix libsodium/src/libsodium/,$(SODIUM_SOURCE))
